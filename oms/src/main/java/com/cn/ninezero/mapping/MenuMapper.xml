@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.ninezero.dao.MenuMapper" >
+  <resultMap id="BaseResultMap" type="com.cn.ninezero.pojo.Menu" >
+    <id column="MENU_ID" property="menuId" jdbcType="VARCHAR" />
+    <result column="MENU_TYPE" property="menuType" jdbcType="VARCHAR" />
+    <result column="CONTENTS" property="contents" jdbcType="VARCHAR" />
+    <result column="SORT_NUMBER" property="sortNumber" jdbcType="INTEGER" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="REL" property="rel" jdbcType="VARCHAR" />
+    <result column="PARENT_MENU_ID" property="parentMenuId" jdbcType="VARCHAR" />
+    <result column="NOTES" property="notes" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="LAST_UPDATE_DATE" property="lastUpdateDate" jdbcType="TIMESTAMP" />
+    <result column="LAST_UPDATE_USER" property="lastUpdateUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    MENU_ID, MENU_TYPE, CONTENTS, SORT_NUMBER, URL, REL, PARENT_MENU_ID, NOTES, CREATE_DATE, 
+    CREATE_USER, LAST_UPDATE_DATE, LAST_UPDATE_USER
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from p_m_menu
+    where MENU_ID = #{menuId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from p_m_menu
+    where MENU_ID = #{menuId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cn.ninezero.pojo.Menu" >
+    insert into p_m_menu (MENU_ID, MENU_TYPE, CONTENTS, 
+      SORT_NUMBER, URL, REL, 
+      PARENT_MENU_ID, NOTES, CREATE_DATE, 
+      CREATE_USER, LAST_UPDATE_DATE, LAST_UPDATE_USER
+      )
+    values (#{menuId,jdbcType=VARCHAR}, #{menuType,jdbcType=VARCHAR}, #{contents,jdbcType=VARCHAR}, 
+      #{sortNumber,jdbcType=INTEGER}, #{url,jdbcType=VARCHAR}, #{rel,jdbcType=VARCHAR}, 
+      #{parentMenuId,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=VARCHAR}, #{lastUpdateDate,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.ninezero.pojo.Menu" >
+    insert into p_m_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="menuId != null" >
+        MENU_ID,
+      </if>
+      <if test="menuType != null" >
+        MENU_TYPE,
+      </if>
+      <if test="contents != null" >
+        CONTENTS,
+      </if>
+      <if test="sortNumber != null" >
+        SORT_NUMBER,
+      </if>
+      <if test="url != null" >
+        URL,
+      </if>
+      <if test="rel != null" >
+        REL,
+      </if>
+      <if test="parentMenuId != null" >
+        PARENT_MENU_ID,
+      </if>
+      <if test="notes != null" >
+        NOTES,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="lastUpdateDate != null" >
+        LAST_UPDATE_DATE,
+      </if>
+      <if test="lastUpdateUser != null" >
+        LAST_UPDATE_USER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="menuId != null" >
+        #{menuId,jdbcType=VARCHAR},
+      </if>
+      <if test="menuType != null" >
+        #{menuType,jdbcType=VARCHAR},
+      </if>
+      <if test="contents != null" >
+        #{contents,jdbcType=VARCHAR},
+      </if>
+      <if test="sortNumber != null" >
+        #{sortNumber,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="rel != null" >
+        #{rel,jdbcType=VARCHAR},
+      </if>
+      <if test="parentMenuId != null" >
+        #{parentMenuId,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateDate != null" >
+        #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateUser != null" >
+        #{lastUpdateUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.ninezero.pojo.Menu" >
+    update p_m_menu
+    <set >
+      <if test="menuType != null" >
+        MENU_TYPE = #{menuType,jdbcType=VARCHAR},
+      </if>
+      <if test="contents != null" >
+        CONTENTS = #{contents,jdbcType=VARCHAR},
+      </if>
+      <if test="sortNumber != null" >
+        SORT_NUMBER = #{sortNumber,jdbcType=INTEGER},
+      </if>
+      <if test="url != null" >
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="rel != null" >
+        REL = #{rel,jdbcType=VARCHAR},
+      </if>
+      <if test="parentMenuId != null" >
+        PARENT_MENU_ID = #{parentMenuId,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        NOTES = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateDate != null" >
+        LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateUser != null" >
+        LAST_UPDATE_USER = #{lastUpdateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MENU_ID = #{menuId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.ninezero.pojo.Menu" >
+    update p_m_menu
+    set MENU_TYPE = #{menuType,jdbcType=VARCHAR},
+      CONTENTS = #{contents,jdbcType=VARCHAR},
+      SORT_NUMBER = #{sortNumber,jdbcType=INTEGER},
+      URL = #{url,jdbcType=VARCHAR},
+      REL = #{rel,jdbcType=VARCHAR},
+      PARENT_MENU_ID = #{parentMenuId,jdbcType=VARCHAR},
+      NOTES = #{notes,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      LAST_UPDATE_USER = #{lastUpdateUser,jdbcType=VARCHAR}
+    where MENU_ID = #{menuId,jdbcType=VARCHAR}
+  </update>
+  
+<!--   <select id="getMenuListByRoleIds" parameterType="String" resultMap="BaseResultMap">
+		 select t.MENU_ID,t.menu_type,t.CONTENTS,t.sort_number,t.url,t.rel,t.parent_menu_id,
+			(select count(1) from p_m_menu m 
+			where m.PARENT_MENU_ID=t.menu_id and m.MENU_TYPE=1
+			) hasChild
+		from p_m_menu t 
+		where 1=1
+		GROUP BY t.MENU_ID
+		order by PARENT_MENU_ID ASC, sort_number asc,menu_id asc 
+	</select> -->
+	<select id="getMenuListByRoleIds" parameterType="String" resultMap="BaseResultMap">
+		select t.MENU_ID,t.menu_type,t.CONTENTS,t.sort_number,t.url,t.rel,t.parent_menu_id,
+			(select count(1) from p_m_menu m left join p_m_menu_role n on m.MENU_ID=n.MENU_ID 
+			where m.PARENT_MENU_ID=t.menu_id and m.MENU_TYPE=1
+			<if test="_parameter!=null and _parameter!=''"> and FIND_IN_SET(n.ROLE_ID,#{userRole})</if>
+			) hasChild
+		from p_m_menu t left join p_m_menu_role mr on t.MENU_ID=mr.MENU_ID 
+		where 1=1
+		<if test="_parameter!=null and _parameter!=''">and  FIND_IN_SET(mr.ROLE_ID,#{userRole})</if>
+		GROUP BY t.MENU_ID
+		order by PARENT_MENU_ID ASC, sort_number asc,menu_id asc
+	</select>
+	<select id="getMenuListByAdmin"  resultMap="BaseResultMap">
+		select t.MENU_ID,t.menu_type,t.CONTENTS,t.sort_number,t.url,t.rel,t.parent_menu_id,
+			(select count(1) from p_m_menu m <!-- left join p_m_menu_role n on m.MENU_ID=n.MENU_ID  -->
+			where m.PARENT_MENU_ID=t.menu_id and m.MENU_TYPE=1
+	<!-- 		<if test="_parameter!=null and _parameter!=''"> and FIND_IN_SET(n.ROLE_ID,#{userRole})</if> -->
+			) hasChild
+		from p_m_menu t <!-- left join p_m_menu_role mr on t.MENU_ID=mr.MENU_ID  -->
+		where 1=1
+		<if test="_parameter!=null and _parameter!=''">and  FIND_IN_SET(mr.ROLE_ID,#{userRole})</if>
+		GROUP BY t.MENU_ID
+		order by PARENT_MENU_ID ASC, sort_number asc,menu_id asc
+	</select>
+	<select id="getCheckedMenuListByRoleIdAndMenuIds"  resultMap="BaseResultMap">
+		select t.MENU_ID,t.menu_type,t.CONTENTS,t.sort_number,t.url,t.rel,t.parent_menu_id,
+		(case when s.menu_id is null then 0 else 1 end) isSelected
+		from p_m_menu t LEFT JOIN 
+		(select m.MENU_ID from p_m_menu_role mr,p_m_menu m 
+		where mr.MENU_ID=m.MENU_ID and mr.ROLE_ID=#{0}) s on t.menu_id=s.menu_id
+		where FIND_IN_SET(t.menu_id,#{1}) 
+		order by sort_number asc
+	</select>
+	
+	<delete id="removeMenusByRoleId" parameterType="String">
+		delete from p_m_menu_role where
+		role_id=#{roleId}
+	</delete>
+	<select id="searchMenuList" parameterType="com.cn.ninezero.pojo.Menu" resultMap="BaseResultMap">
+		select
+		t.menu_id,
+		t.menu_type,
+		t.contents,
+		t.sort_number,
+		t.url,
+		t.rel,
+		t.parent_menu_id,
+		m.contents parentMenuName,
+		t.notes,
+		t.create_date,
+		t.create_user,
+		t.last_update_date,
+		t.last_update_user
+		from
+		p_m_menu t
+		left join p_m_menu m on t.parent_menu_id=m.menu_id
+		<where>
+			<if test="menuId!=null"> and t.menu_id=#{menuId}</if>
+			<if test="menuType!=null and menuType!=''"> and t.menu_type=#{menuType}</if>
+			<if test="contents!=null and contents!=''"> and t.contents like concat('%',#{contents},'%')</if>
+			<if test="sortNumber!=null and sortNumber!=''"> and t.sort_number=#{sortNumber}</if>
+			<if test="url!=null and url!=''"> and t.url like concat('%',#{url},'%')</if>
+			<if test="rel!=null and rel!=''"> and t.rel=#{rel}</if>
+			<if test="parentMenuId!=null"> and t.parent_menu_id=#{parentMenuId}</if>
+			<if test="notes!=null and notes!=''"> and t.notes=#{notes}</if>
+		</where>
+		order by t.PARENT_MENU_ID ASC, t.sort_number asc,t.menu_id asc
+		<if test="pager!=null">limit #{pager.offset},#{pager.numPerPage}</if>
+	</select>
+	<select id="searchMenuListCount" parameterType="com.cn.ninezero.pojo.Menu" resultType="Long">
+		select
+		count(1)
+		from
+		p_m_menu t
+		<where>
+			<if test="menuId!=null"> and t.menu_id=#{menuId}</if>
+			<if test="menuType!=null and menuType!=''"> and t.menu_type=#{menuType}</if>
+			<if test="contents!=null and contents!=''"> and t.contents like concat('%',#{contents},'%')</if>
+			<if test="sortNumber!=null and sortNumber!=''"> and t.sort_number=#{sortNumber}</if>
+			<if test="url!=null and url!=''"> and t.url like concat('%',#{url},'%')</if>
+			<if test="rel!=null and rel!=''"> and t.rel=#{rel}</if>
+			<if test="parentMenuId!=null"> and t.parent_menu_id=#{parentMenuId}</if>
+			<if test="notes!=null and notes!=''"> and t.notes=#{notes}</if>
+		</where>
+	</select>
+	<insert id="addMenu" parameterType="com.cn.ninezero.pojo.Menu" keyProperty="menu_id">
+		insert into p_m_menu
+		(
+		menu_id,
+		menu_type,
+		contents,
+		sort_number,
+		url,
+		rel,
+		parent_menu_id,
+		notes,
+		create_user,
+		last_update_user
+		)
+		values
+		(
+		#{menuId},
+		'1',
+		#{contents},
+		#{sortNumber},
+		#{url},
+		#{rel},
+		#{parentMenuId},
+		#{notes},
+		'system',
+		#{lastUpdateUser}
+		)
+	</insert>
+	<select id="findMenu" parameterType="String" resultMap="BaseResultMap">
+		select
+		t.menu_id,
+		t.menu_type,
+		t.contents,
+		t.sort_number,
+		t.url,
+		t.rel,
+		t.parent_menu_id,
+		m.contents parentMenuName,
+		t.notes,
+		t.create_date,
+		t.create_user,
+		t.last_update_date,
+		t.last_update_user
+		from
+		p_m_menu t
+		left join p_m_menu m on t.parent_menu_id=m.menu_id
+		where
+		t.menu_id = #{menuId}
+	</select>
+	<update id="modifyMenu" parameterType="com.cn.ninezero.pojo.Menu">
+		update p_m_menu
+		<set>
+			<if test="menuId!=null"> menu_id=#{menuId}, </if>
+			<if test="menuType!=null"> menu_type=#{menuType}, </if>
+			<if test="contents!=null"> contents=#{contents}, </if>
+			<if test="sortNumber!=null"> sort_number=#{sortNumber}, </if>
+			<if test="url!=null"> url=#{url}, </if>
+			<if test="url!=null"> rel=#{rel}, </if>
+			<if test="parentMenuId!=null"> parent_menu_id=#{parentMenuId}, </if>
+			<if test="notes!=null"> notes=#{notes}, </if>
+			last_update_date=sysdate(),
+			<if test="lastUpdateUser!=null"> last_update_user=#{lastUpdateUser}, </if>
+		</set>
+		<where>
+			menu_id=#{menuId}
+		</where>
+	</update>
+	<delete id="removeMenu" parameterType="String">
+		delete from p_m_menu where
+		menu_id=#{menuId}
+	</delete>
+</mapper>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.ninezero.dao.LoanMapper">
+	<resultMap id="BaseResultMap" type="com.cn.ninezero.pojo.Loan">
+		<id column="qq" property="qq" jdbcType="VARCHAR" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="tel" property="tel" jdbcType="VARCHAR" />
+		<result column="creditScore" property="creditscore" jdbcType="VARCHAR" />
+		<result column="creditCondition" property="creditcondition"
+			jdbcType="VARCHAR" />
+		<result column="dredgeTime" property="dredgetime" jdbcType="VARCHAR" />
+		<result column="loanReason" property="loanreason" jdbcType="VARCHAR" />
+		<result column="loanLimit" property="loanlimit" jdbcType="VARCHAR" />
+		<result column="applyTime" property="applytime" jdbcType="TIMESTAMP" />
+		<result column="totalLimit" property="totallimit" jdbcType="VARCHAR" />
+		<result column="checkResult" property="checkresult" jdbcType="INTEGER" />
+		<result column="checkReason" property="checkreason" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		qq, address, name, tel, creditScore, creditCondition, dredgeTime,
+		loanReason, loanLimit,
+		applyTime, totalLimit, checkResult, checkReason
+	</sql>
+	<select id="getLoanCount" parameterType="com.cn.ninezero.pojo.Loan"
+		resultType="long">
+		select count(1) data_count from
+		( select
+		<include refid="Base_Column_List" />
+		from loanapply t
+		where 1=1 order by t.applytime desc
+		
+		) b
+	</select>
+	<select id="getLoanList" parameterType="com.cn.ninezero.pojo.User"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from loanapply t
+		where 1=1 order by t.applytime desc
+		<if test="pager!=null">limit #{pager.offset},#{pager.numPerPage}</if>
+	</select>
+	<select id="getLoanList_export" resultMap="BaseResultMap">
+      select
+		<include refid="Base_Column_List" />
+		from loanapply
+	
+	</select>
+	<update id="loanApply" parameterType="com.cn.ninezero.pojo.Loan">
+		update loanapply
+		<set>
+			<if test="checkresult!=null"> checkResult=#{checkresult}, </if>
+			<if test="checkreason!=null"> checkReason=#{checkreason}, </if>
+		</set>
+		<where>
+			qq=#{qq}
+		</where>
+	</update>
+</mapper>

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.ninezero.dao.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.cn.ninezero.pojo.Role" >
+    <id column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+    <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+    <result column="CATEGORY" property="category" jdbcType="VARCHAR" />
+    <result column="NOTES" property="notes" jdbcType="VARCHAR" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+    <result column="LAST_UPDATE_DATE" property="lastUpdateDate" jdbcType="TIMESTAMP" />
+    <result column="LAST_UPDATE_USER" property="lastUpdateUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ROLE_ID, ROLE_NAME, CATEGORY, NOTES, CREATE_DATE, CREATE_USER, LAST_UPDATE_DATE, 
+    LAST_UPDATE_USER
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from p_m_role
+    where ROLE_ID = #{roleId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from p_m_role
+    where ROLE_ID = #{roleId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cn.ninezero.pojo.Role" >
+    insert into p_m_role (ROLE_ID, ROLE_NAME, CATEGORY, 
+      NOTES, CREATE_DATE, CREATE_USER, 
+      LAST_UPDATE_DATE, LAST_UPDATE_USER)
+    values (#{roleId,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, 
+      #{notes,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, 
+      #{lastUpdateDate,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.ninezero.pojo.Role" >
+    insert into p_m_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+      <if test="roleName != null" >
+        ROLE_NAME,
+      </if>
+      <if test="category != null" >
+        CATEGORY,
+      </if>
+      <if test="notes != null" >
+        NOTES,
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE,
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER,
+      </if>
+      <if test="lastUpdateDate != null" >
+        LAST_UPDATE_DATE,
+      </if>
+      <if test="lastUpdateUser != null" >
+        LAST_UPDATE_USER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null" >
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateDate != null" >
+        #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateUser != null" >
+        #{lastUpdateUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.ninezero.pojo.Role" >
+    update p_m_role
+    <set >
+      <if test="roleName != null" >
+        ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        CATEGORY = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        NOTES = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateDate != null" >
+        LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdateUser != null" >
+        LAST_UPDATE_USER = #{lastUpdateUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ROLE_ID = #{roleId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.ninezero.pojo.Role" >
+    update p_m_role
+    set ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      CATEGORY = #{category,jdbcType=VARCHAR},
+      NOTES = #{notes,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
+      CREATE_USER = #{createUser,jdbcType=VARCHAR},
+      LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
+      LAST_UPDATE_USER = #{lastUpdateUser,jdbcType=VARCHAR}
+    where ROLE_ID = #{roleId,jdbcType=VARCHAR}
+  </update>
+  	<select id="getParentRoleList" parameterType="com.cn.ninezero.pojo.User" resultMap="BaseResultMap">
+		select
+		r.role_id,
+		r.role_name,
+		r.category,
+		r.notes,
+		r.create_date,
+		r.create_user,
+	<!-- 	u.user_account createUserAccount, -->
+		r.last_update_date,
+		r.last_update_user
+		from
+		p_m_role r 
+	<!-- 	left join tbl_user u ON r.CREATE_USER=u.user_id  -->
+		<!-- where r.category!=4 -->
+ 		order by r.create_date
+ 		<if test="pager!=null">limit #{pager.offset},#{pager.numPerPage}</if>
+	</select>
+		<select id="getParentRoleListCount" parameterType="com.cn.ninezero.pojo.User" resultType="Long">
+		select
+		count(1)
+		from
+		p_m_role r
+	</select>
+		<insert id="addRole" parameterType="com.cn.ninezero.pojo.Role" keyProperty="role_id">
+		insert into p_m_role
+		(
+		role_id,
+		role_name,
+		<!-- category, -->
+		notes,
+		create_user,
+		last_update_user
+		)
+		values
+		(
+		#{roleId},
+		#{roleName},
+	<!-- 	#{category}, -->
+		#{notes},
+		#{createUser},
+		#{lastUpdateUser}
+		)
+	</insert>
+	<update id="modifyRoleMenuRelation"  >  
+        { call role_menu_func(#{0},#{1})}   
+    </update> 
+    <select id="findRole" parameterType="String" resultMap="BaseResultMap">
+		select
+		p_m_role.role_id,
+		p_m_role.role_name,
+		p_m_role.category,
+		p_m_role.notes,
+		p_m_role.create_date,
+		p_m_role.create_user,
+		p_m_role.last_update_date,
+		p_m_role.last_update_user
+		from
+		p_m_role
+		where
+		p_m_role.role_id = #{roleId}
+	</select>
+	<update id="modifyRole" parameterType="com.cn.ninezero.pojo.Role">
+		update p_m_role
+		<set>
+			<if test="roleId!=null"> role_id=#{roleId}, </if>
+			<if test="roleName!=null"> role_name=#{roleName}, </if>
+			<if test="category!=null"> category=#{category}, </if>
+			<if test="notes!=null"> notes=#{notes}, </if>
+			last_update_date=sysdate()
+			<!-- <if test="lastUpdateUser!=null"> last_update_user=#{lastUpdateUser}, </if> -->
+		</set>
+		<where>
+			role_id=#{roleId}
+		</where>
+	</update>
+	<delete id="removeRole" parameterType="String">
+		delete from p_m_role where
+		role_id=#{roleId}
+	</delete>
+		<select id="getAllRoleList" parameterType="com.cn.ninezero.pojo.User" resultMap="BaseResultMap">
+		select
+		r.role_id,
+		r.role_name,
+		r.category,
+		r.notes,
+		r.create_date,
+		r.create_user,
+		r.last_update_date,
+		r.last_update_user
+		from
+		p_m_role r 
+ 		order by r.create_date
+	</select>
+</mapper>
