@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.ninezero.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.cn.ninezero.pojo.User" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_pwd" property="userPwd" jdbcType="VARCHAR" />
+    <result column="user_role" property="userRole" jdbcType="VARCHAR" />
+    <result column="team_id" property="teamId" jdbcType="VARCHAR" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    <result column="user_avatar" property="userAvatar" jdbcType="VARCHAR" />
+    <result column="background_theme" property="backgroundTheme" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, user_name, user_pwd, user_role, team_id, user_avatar, background_theme
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.ninezero.pojo.User" >
+    insert into user (user_id, user_name, user_pwd, 
+      user_role, team_id, user_avatar, 
+      background_theme)
+    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userPwd,jdbcType=VARCHAR}, 
+      #{userRole,jdbcType=INTEGER}, #{teamId,jdbcType=VARCHAR}, #{userAvatar,jdbcType=VARCHAR}, 
+      #{backgroundTheme,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.ninezero.pojo.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="userPwd != null" >
+        user_pwd,
+      </if>
+      <if test="userRole != null" >
+        user_role,
+      </if>
+      <if test="teamId != null" >
+        team_id,
+      </if>
+      <if test="userAvatar != null" >
+        user_avatar,
+      </if>
+      <if test="backgroundTheme != null" >
+        background_theme,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null" >
+        #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userRole != null" >
+        #{userRole,jdbcType=VARCHAR},
+      </if>
+      <if test="teamId != null" >
+        #{teamId,jdbcType=VARCHAR},
+      </if>
+      <if test="userAvatar != null" >
+        #{userAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="backgroundTheme != null" >
+        #{backgroundTheme,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.ninezero.pojo.User" >
+    update user
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPwd != null" >
+        user_pwd = #{userPwd,jdbcType=VARCHAR},
+      </if>
+      <if test="userRole != null" >
+        user_role = #{userRole,jdbcType=VARCHAR},
+      </if>
+      <if test="teamId != null" >
+        team_id = #{teamId,jdbcType=VARCHAR},
+      </if>
+      <if test="userAvatar != null" >
+        user_avatar = #{userAvatar,jdbcType=VARCHAR},
+      </if>
+      <if test="backgroundTheme != null" >
+        background_theme = #{backgroundTheme,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.ninezero.pojo.User" >
+    update user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      user_pwd = #{userPwd,jdbcType=VARCHAR},
+      user_role = #{userRole,jdbcType=VARCHAR},
+      team_id = #{teamId,jdbcType=VARCHAR},
+      user_avatar = #{userAvatar,jdbcType=VARCHAR},
+      background_theme = #{backgroundTheme,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+   <select id="getUserByUserName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where user_name = #{userName,jdbcType=VARCHAR}
+  </select>
+    <select id="checkUserName" resultType="int" parameterType="java.lang.String" >
+    select 
+    count(1)
+    from user
+    where user_name = #{userName,jdbcType=VARCHAR}
+  </select>
+    <select id="checkUserPass" resultType="int"  parameterType="map" >
+    select 
+    count(1)
+    from user
+    where user_name = #{userName,jdbcType=VARCHAR} and user_pwd=#{userPwd,jdbcType=VARCHAR}
+  </select>
+  <!-- 获取角色列表信息 -->
+	<select id="getRoleUserList" parameterType="com.cn.ninezero.pojo.User" resultMap="BaseResultMap">
+		select
+		pmu.user_id,
+		pmu.user_name,
+		pmu.user_role
+		from
+		user pmu
+		where 
+		pmu.user_role =#{roleId}
+	</select>
+	<!-- 获取管理员列表 -->
+	<select id="getAdminUserList" parameterType="com.cn.ninezero.pojo.User" resultMap="BaseResultMap">
+		SELECT a.user_id,
+		       a.user_name,
+		       a.user_role,
+		       a.team_id,
+		       a.role_name
+				FROM
+					user a
+			<where>
+			
+				<if test="userId!=null">and a.user_id = #{userId}</if>
+				<if test="userName!=null">and a.user_name like concat('%',#{userName},'%')</if>
+				<if test="userRole!=null">and a.user_role like concat('%',#{userRole},'%')</if>
+			</where>
+				group by a.user_id
+		<if test="pager!=null">limit #{pager.offset},#{pager.numPerPage}</if>
+	</select>
+	
+	<select id="getAdminUserCount" parameterType="com.cn.ninezero.pojo.User"
+		resultType="long">
+		select count(1) data_count from 
+			(SELECT a.user_id
+				FROM
+					user a
+			<where>
+			
+				<if test="userId!=null">and a.user_id = #{userId}</if>
+				<if test="userName!=null">and a.user_name like concat('%',#{userName},'%')</if>
+				<if test="userRole!=null">and a.user_role like concat('%',#{userRole},'%')</if>
+			</where>
+				group by a.user_id
+			) b
+	</select> 
+	
+</mapper>
