@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Do Visit Test</title>
+</head>
+<body>
+点击数-Do Visit Test
+<br>
+
+<!-- 
+<form action="http://192.168.0.249:8001/interaction-service-2.0.0/playTimes" method="post">
+<form action="http://localhost:8080/playTimes" method="post">
+<form action="http://192.168.1.249:8001/interaction-service-2.0.0/playTimes" method="get">
+ -->
+
+<form action="/interaction-service-3.0.0/visit" method="get">
+<table>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
+
+<tr>
+<td>contentId</td>
+<td><input id="contentId" name="contentId" type="text" value="38" /></td>
+</tr>
+<tr>
+<td>playTimes</td>
+<td><input id="playTimes" name="playTimes" type="text" value="14" /></td>
+</tr>
+
+<tr>
+<td>type</td>
+<td><input id="type" name="type"  value="1" /></td>
+</tr>
+
+</table>
+
+<input type="submit" value="submit" />
+<input type="reset" value="reset" />
+
+</form>
+
+</body>
+</html>

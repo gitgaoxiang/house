@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>好友推荐-Recommend Servlet Test</title>
+</head>
+<body>
+
+好友推荐-Recommend Servlet Test
+<br>
+
+<!-- 
+<form action="http://192.168.0.249:8001/interaction-service-2.0.0/recommend" method="post">
+<form action="http://localhost:8080/recommend" method="post">
+ 
+ <form action="http://192.168.1.249:8001/interaction-service-2.0.0/recommend" method="get">
+ 
+ -->
+<form action="../interaction" method="post">
+<table>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
+
+<tr>
+<td>phoneNumber</td>
+<td><input id="phoneNumber" name="phoneNumber" type="text" value="13579246810" /></td>
+</tr>
+
+<tr>
+<td>targetPhoneNumber</td>
+<td><input id="targetPhoneNumber" name="targetPhoneNumber" type="text" value="123456789" /></td>
+</tr>
+
+<tr>
+<td>contentId</td>
+<td><input id="contentId" name="contentId" type="text" value="10001" /></td>
+</tr>
+
+<tr>
+<td>nodeId</td>
+<td><input id="nodeId" name="nodeId" type="text" value="1" /></td>
+</tr>
+
+<tr>
+<td>smsContent</td>
+<td><input id="smsContent" name="smsContent" type="text" value="包月服务套餐A" /></td>
+</tr>
+
+<tr>
+<td>categoryID</td>
+<td><input id="categoryID" name="categoryID" type="text" value="6" readonly="readonly" /></td>
+</tr>
+
+<tr>
+<td>rcmdType  枚举值  0：内容 1：栏目  默认0 </td>
+<td><input id="rcmdType" name="rcmdType" type="text" value="0" /></td>
+</tr>
+
+<tr>
+<td>url</td>
+<td><input id="url" name="url" type="text" value="/login.jsp" /></td>
+</tr>
+
+<tr>
+<td>type</td>
+<td><input id="type" name="type"  value="recommend" /></td>
+</tr>
+</table>
+
+<input type="submit" value="submit" />
+<input type="reset" value="reset" />
+
+</form>
+
+<br/>
+
+<hr/>
+
+
+好友推荐(销售平台) -get Client Msg Servlet Test
+<br>
+
+<!-- 
+<form action="http://192.168.0.249:8001/interaction-service-2.0.0/recommend" method="post">
+<form action="http://localhost:8080/recommend" method="post">
+ 
+ <form action="http://192.168.1.249:8001/interaction-service-2.0.0/recommend" method="get">
+ 
+ -->
+<form action="../getClientMsg" method="post">
+<table>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td>contentID</td>
+<td><input id="contentID" name="contentID" type="text" value="10001" /></td>
+</tr>
+
+<tr>
+<td>nodeID</td>
+<td><input id="nodeID" name="nodeID" type="text" value="1" /></td>
+</tr>
+
+<tr>
+<td>msgContent</td>
+<td><input id="msgContent" name="msgContent" type="text" value="包月服务套餐A" /></td>
+</tr>
+
+<tr>
+<td>categoryID</td>
+<td><input id="categoryID" name="categoryID" type="text" value="1" /></td>
+</tr>
+
+<tr>
+<td>msgTitle</td>
+<td><input id="msgTitle" name="msgTitle" type="text" value="title" /></td>
+</tr>
+
+<tr>
+<td>rcmdType  枚举值  0：内容 1：栏目  默认0 </td>
+<td><input id="rcmdType" name="rcmdType" type="text" value="0" /></td>
+</tr>
+
+<!-- 
+<tr>
+<td>categoryName</td>
+<td><input id="categoryName" name="categoryName" type="text" value="营销" /></td>
+</tr>
+ -->
+</table>
+
+<input type="submit" value="submit" />
+<input type="reset" value="reset" />
+
+</form>
+
+
+<br/>
+
+<hr/>
+
+
+wap push 短信  - wap push notice Servlet Test
+<br>
+
+<!-- 
+<form action="http://192.168.0.249:8001/interaction-service-2.0.0/recommend" method="post">
+<form action="http://localhost:8080/recommend" method="post">
+ 
+ <form action="http://192.168.1.249:8001/interaction-service-2.0.0/recommend" method="get">
+ 
+ -->
+<form action="../recommendWap" method="post">
+<table>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
+
+<tr>
+<td>phoneNumber</td>
+<td><input id="phoneNumber" name="phoneNumber" type="text" value="13579246810" /></td>
+</tr>
+
+<tr>
+<td>targetPhoneNumber</td>
+<td><input id="targetPhoneNumber" name="targetPhoneNumber" type="text" value="123456789" /></td>
+</tr>
+
+<tr>
+<td>pushUrl</td>
+<td><input id="pushUrl" name="pushUrl" type="text" value="www.baidu.com" /></td>
+</tr>
+
+<tr>
+<td>title</td>
+<td><input id="title" name="title" type="text" value="hello" /></td>
+</tr>
+
+<tr>
+<td>content</td>
+<td><input id="content" name="content" type="text" value="content..." /></td>
+</tr>
+
+
+</table>
+
+<input type="submit" value="submit" />
+<input type="reset" value="reset" />
+
+</form>
+
+</body>
+</html>

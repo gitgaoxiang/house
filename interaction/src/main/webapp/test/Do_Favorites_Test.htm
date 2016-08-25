@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Collect Test</title>
+</head>
+<body>
+添加收藏
+<br>
+
+<!-- 
+<form action="http://192.168.0.249:8001/interaction-service-2.0.0/collect" method="post">
+<form action="http://localhost:8080/collect" method="post">
+<form action="http://192.168.1.249:8001/interaction-service-2.0.0/collect" method="get">
+ -->
+
+<form action="/interaction-service-3.0.0/favorites" method="post">
+<table>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+
+	<tr>
+	<td>userId</td>
+	<td><input id="userId" name="userId" type="text" value="23" /></td>
+	</tr>
+	
+	<tr>
+	<td>contentId</td>
+	<td><input id="contentId" name="contentId" type="text" value="" /></td>
+	</tr>
+	
+	<tr>
+	<td>nodeId</td>
+	<td><input id="nodeId" name="nodeId" type="text" value="88001" /></td>
+	</tr>
+	
+	<tr>
+	<td>mainNodeId</td>
+	<td><input id="mainNodeId" name="mainNodeId" type="text" value="8" /></td>
+	</tr>
+	
+	<tr>
+	<td>name</td>
+	<td><input id="name" name="name" type="text" value="test" /></td>
+	</tr>
+	
+	<tr>
+	<td>clientType</td>
+	<td><input id="clientType" name="clientType" type="text" value="0" /></td>
+	</tr>
+	
+	<tr>
+	<td>isLive</td>
+	<td><input id="isLive" name="isLive" type="text" value="1" /></td>
+	</tr>
+
+	<tr>
+		<td>返回类型：</td><td><input type="text" name="resultType" value="json"/></td>
+	</tr>
+
+</table>
+
+<input type="submit" value="submit" />
+<input type="reset" value="reset" />
+
+</form>
+
+</body>
+</html>

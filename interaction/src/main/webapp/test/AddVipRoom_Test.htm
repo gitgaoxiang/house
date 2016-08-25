@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>AddVipRoom Test</title>
+</head>
+<body>
+创建 VipRoom Test
+<br>
+
+<form action="/interaction-service-3.0.0/addVipRoom" method="post">
+<table>
+<tr>
+<td>创建vip房间的用户ID（房主）</td>
+<td><input id="createUserId" name="createUserId" type="text" value="1158" /></td>
+</tr>
+
+<tr>
+<td>规则（1.被邀请人或0.任何人）</td>
+<td><input id="rule" name="rule" type="text" value="0" /></td>
+</tr>
+
+
+<tr>
+<td>房间播放的节目ID</td>
+<td><input id="contId" name="contId" type="text" value="46765" /></td>
+</tr>
+
+<tr>
+<td>房间容量</td>
+<td><input id="maxNum" name="maxNum" type="text" value="10" /></td>
+</tr>
+
+<tr>
+<td>开始时间</td>
+<td><input id="startTime" name="startTime" type="text" value="2013-07-25 12:10:10" /></td>
+</tr>
+
+<tr>
+<td>结束时间</td>
+<td><input id="endTime" name="endTime" type="text" value="2013-07-25 18:10:10" /></td>
+</tr>
+
+
+
+	<tr>
+		<td>返回类型</td><td><input type="text" name="resultType" value="json"/></td>
+	</tr>
+</table>
+
+<input type="submit" value="submit" />
+<input type="reset" value="reset" />
+
+</form>
+
+</body>
+</html>
