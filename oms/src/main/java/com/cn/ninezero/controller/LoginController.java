@@ -1,10 +1,12 @@
 package com.cn.ninezero.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -23,6 +25,7 @@ import com.cn.ninezero.pojo.User;
 import com.cn.ninezero.security.SecurityUtils;
 import com.cn.ninezero.service.MenuService;
 import com.cn.ninezero.service.UserService;
+import com.cn.ninezero.utils.CaptchaUtil;
 import com.cn.ninezero.utils.MD5Util;
 
 @Controller
@@ -35,8 +38,22 @@ public class LoginController {
 	private MenuService menuService;
 
 	@RequestMapping("/login")
-	public String login() {
+	public String login(/*
+						 * HttpServletRequest request, HttpServletResponse
+						 * response
+						 */)
+	// throws ServletException, IOException
+	{
+		// CaptchaUtil.outputCaptcha(request, response);
+
 		return "login";
+	}
+
+	@RequestMapping(value = "/captcha", method = RequestMethod.GET)
+	@ResponseBody
+	public void captcha(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		CaptchaUtil.outputCaptcha(request, response);
 	}
 
 	@RequestMapping("/index")
@@ -47,29 +64,23 @@ public class LoginController {
 			return "login";
 		} else {
 
-			// menuList=menuMapper.getMenuListByRoleIds(roleIds);
-			// List<MenuModel> menuList=SessionMgr.getUserMenus(request);
-			/*
-			 * if(ObjectUtil.isEmpty(menuList)){
-			 * roleService.initRolesAndMenus(request); }
-			 */
 			List<Menu> menuList = menuService.getMenuListByRoleIds(user
 					.getUserRole());
 
 			String strHtml = menuService.getMenuTree(menuList, false);
 			model.addAttribute("menuTreeModel", strHtml);
-			
+
 			model.addAttribute("loginUser", user);
-		
+
 			return "homePage";
 
 		}
 	}
 
 	@RequestMapping(value = "/doLogin")
-	public @ResponseBody
-	Map<String, ?> login(HttpServletRequest request,
-			@RequestParam String userName, @RequestParam String userPwd) {
+	public @ResponseBody Map<String, ?> login(HttpServletRequest request,
+			@RequestParam String userName, @RequestParam String userPwd,
+			String captcha) {
 		try {
 			boolean flag = true;
 			Map<String, Object> modelMap = new HashMap<String, Object>();
@@ -79,6 +90,16 @@ public class LoginController {
 			 * "绯荤粺寮傚父锛屽紓甯镐唬鐮侊細P"); modelMap.put("success",
 			 * Boolean.valueOf(true)); return modelMap; }
 			 */
+			String cod = (String) request.getSession(true).getAttribute(
+					"randomString");
+			if (!cod.equalsIgnoreCase(captcha)) {
+				flag = false;
+				modelMap.put("isLoginSuccess", false);
+				modelMap.put("message", "验证码不正确");
+				modelMap.put("success", Boolean.valueOf(true));
+				return modelMap;
+
+			}
 			User userlogin = new User();
 			userlogin.setUserName(userName);
 			userlogin.setUserPwd(MD5Util.GetMD5Code(userPwd, false));
@@ -147,16 +168,14 @@ public class LoginController {
 
 	@RequestMapping(value = "/toSimplelogin", method = RequestMethod.POST)
 	@ResponseBody
-	public String toSimplelogin(
-			@RequestParam("username") String userName,
+	public String toSimplelogin(@RequestParam("username") String userName,
 			@RequestParam("passwd") String userPwd, HttpServletRequest request,
 			Model model) {
 		DwzAjaxResult dwzResult;
 		try {
-			
 
 			boolean flag = true;
-			//Map<String, Object> modelMap = new HashMap<String, Object>();
+			// Map<String, Object> modelMap = new HashMap<String, Object>();
 			/*
 			 * if (!this.checkCurrentSystemPermission(request)) { flag = false;
 			 * modelMap.put("isLoginSuccess", false); modelMap.put("message",
@@ -168,42 +187,50 @@ public class LoginController {
 			userlogin.setUserPwd(MD5Util.GetMD5Code(userPwd, false));
 			if (this.userService.checkUserName(userName) == 0) {
 				flag = false;
-				/*modelMap.put("isLoginSuccess", false);
-				modelMap.put("message", "用户名不存在");
-				modelMap.put("success", Boolean.valueOf(true));*/
+				/*
+				 * modelMap.put("isLoginSuccess", false);
+				 * modelMap.put("message", "用户名不存在"); modelMap.put("success",
+				 * Boolean.valueOf(true));
+				 */
 				dwzResult = new DwzAjaxResult("300", "用户名不存在！", "", "", "");
 				return new JsonObject(dwzResult).toString();
-				
+
 			} else if (this.userService.checkUserPass(userlogin) == 0) {
 				flag = false;
-				/*modelMap.put("isLoginSuccess", false);
-				modelMap.put("message", "密码错误");
-				modelMap.put("success", Boolean.valueOf(true));*/
+				/*
+				 * modelMap.put("isLoginSuccess", false);
+				 * modelMap.put("message", "密码错误"); modelMap.put("success",
+				 * Boolean.valueOf(true));
+				 */
 				dwzResult = new DwzAjaxResult("400", "密码错误！", "", "", "");
 				return new JsonObject(dwzResult).toString();
 			}
 			if (flag) {
 				User user = this.userService.getUserByUserName(userName);
 				request.getSession().setAttribute("loginUser", user);
-				/*modelMap.put("isLoginSuccess", true);
-				modelMap.put("data", user);
-				modelMap.put("success", Boolean.valueOf(true));
-				return modelMap;*/
+				/*
+				 * modelMap.put("isLoginSuccess", true); modelMap.put("data",
+				 * user); modelMap.put("success", Boolean.valueOf(true)); return
+				 * modelMap;
+				 */
 				dwzResult = new DwzAjaxResult("200", "登陆成功！", "", "", "");
 				return new JsonObject(dwzResult).toString();
 			} else {
-				/*modelMap.put("isLoginSuccess", false);
-				modelMap.put("success", Boolean.valueOf(true));
-				return modelMap;*/
+				/*
+				 * modelMap.put("isLoginSuccess", false);
+				 * modelMap.put("success", Boolean.valueOf(true)); return
+				 * modelMap;
+				 */
 				dwzResult = new DwzAjaxResult("200", "登陆成功！", "", "", "");
 				return new JsonObject(dwzResult).toString();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			/*Map<String, Object> map = new HashMap<String, Object>();
-			map.put("success", false);
-			map.put("message", "用户名或密码错误");
-			return map;*/
+			/*
+			 * Map<String, Object> map = new HashMap<String, Object>();
+			 * map.put("success", false); map.put("message", "用户名或密码错误"); return
+			 * map;
+			 */
 			dwzResult = new DwzAjaxResult("300", "用户名或密码错误！", "", "", "");
 		}
 		return new JsonObject(dwzResult).toString();
